@@ -36,4 +36,16 @@
             descriptionTarget.classList.remove('loading');
             descriptionTarget.innerHTML = global.noReferrerLinks(md.render(description));
         });
+
+    // fetch discourse comments if any
+    let discourse = document.getElementById('discourse-link');
+    if (discourse) {
+        let topicId = discourse.href.split('/').pop();
+        let discourseUrl = `https://help.nextcloud.com/t/${topicId}.json`;
+        fetch(discourseUrl)
+            .then(global.convertResponse)
+            .then(data => {
+                console.log(data);
+            })
+    }
 }(this));
